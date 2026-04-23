@@ -1,0 +1,226 @@
+{
+  "info": {
+    "name": "TMDb REST API",
+    "description": "Collection for the TMDb REST API proxy",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000"
+    }
+  ],
+  "item": [
+    {
+      "name": "Movies",
+      "item": [
+        {
+          "name": "List Movies",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/movies?page=1&language=en-US",
+              "host": ["{{base_url}}"],
+              "path": ["api", "movies"],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "language", "value": "en-US" }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status is 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Has success true', () => pm.expect(pm.response.json().success).to.be.true);",
+                  "pm.test('Has pagination', () => { const j = pm.response.json(); pm.expect(j.pagination).to.have.property('page'); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Search Movies",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/movies?query=inception&page=1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "movies"],
+              "query": [
+                { "key": "query", "value": "inception" },
+                { "key": "page", "value": "1" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Movie Details",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/movies/550",
+              "host": ["{{base_url}}"],
+              "path": ["api", "movies", "550"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status is 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Has success true', () => pm.expect(pm.response.json().success).to.be.true);"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "TV Shows",
+      "item": [
+        {
+          "name": "List TV Shows",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/tv?page=1&language=en-US",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tv"],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "language", "value": "en-US" }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status is 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Has success true', () => pm.expect(pm.response.json().success).to.be.true);",
+                  "pm.test('Has pagination', () => { const j = pm.response.json(); pm.expect(j.pagination).to.have.property('page'); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "TV Show Details",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/tv/1399",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tv", "1399"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "People",
+      "item": [
+        {
+          "name": "Search People",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/people?query=Brad+Pitt&page=1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "people"],
+              "query": [
+                { "key": "query", "value": "Brad Pitt" },
+                { "key": "page", "value": "1" }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status is 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Has success true', () => pm.expect(pm.response.json().success).to.be.true);",
+                  "pm.test('Has pagination', () => { const j = pm.response.json(); pm.expect(j.pagination).to.have.property('page'); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Person Details",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/people/287",
+              "host": ["{{base_url}}"],
+              "path": ["api", "people", "287"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Trending",
+      "item": [
+        {
+          "name": "Trending Movies (Day)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/trending/movie?time_window=day",
+              "host": ["{{base_url}}"],
+              "path": ["api", "trending", "movie"],
+              "query": [
+                { "key": "time_window", "value": "day" }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status is 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Has success true', () => pm.expect(pm.response.json().success).to.be.true);",
+                  "pm.test('Has pagination', () => { const j = pm.response.json(); pm.expect(j.pagination).to.have.property('page'); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Trending TV (Week)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/trending/tv?time_window=week",
+              "host": ["{{base_url}}"],
+              "path": ["api", "trending", "tv"],
+              "query": [
+                { "key": "time_window", "value": "week" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Trending People",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/trending/person",
+              "host": ["{{base_url}}"],
+              "path": ["api", "trending", "person"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
