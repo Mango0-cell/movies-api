@@ -143,8 +143,3 @@ tests/
 
 A Postman collection is included in the `postman/` directory. Import it into Postman to quickly test all endpoints.
 
----
-
-## 📄 License
-
-This project is licensed under the [MIT License](LICENSE).
